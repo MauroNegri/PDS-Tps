@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function [t_cuant, x_cuant] = cuantizacion16(t, x)
 
 ##  [t, x] = senoidal(t_ini, t_fin, fm, fs, phi, A);
@@ -25,3 +26,33 @@ function [t_cuant, x_cuant] = cuantizacion16(t, x)
   x_cuant = p;
   t_cuant = t;
 end
+=======
+function [t_cuant, x_cuant] = cuantizacion16(t, x)
+
+##  [t, x] = senoidal(t_ini, t_fin, fm, fs, phi, A);
+
+  N = 16;
+
+  x_min = min(x);
+  x_resta = x - x_min;
+  H = max(x_resta) / N; # H = (x_max - x_min) / N
+
+##  p(x_resta<0) = 0; % no va a ser menor a 0
+##  p((0 <= x_resta) & (x_resta < (N-1)*H)) = H*floor(x_resta/H);
+##  p(x_resta >= (N-1)*H) = (N-1)*H;
+
+  p = zeros(size(x_resta));
+  for i = 1:length(x_resta)
+    if x_resta(i) < 0
+      p(i) = 0;
+    elseif x_resta(i) >= (N-1)*H
+      p(i) = (N-1)*H;
+    else
+      p(i) = H * floor(x_resta(i) / H);
+    endif
+  endfor
+
+  x_cuant = p + x_min;
+  t_cuant = t;
+end
+>>>>>>> 9599ffc15993d9c5acd7ce68139590d11d42275c
