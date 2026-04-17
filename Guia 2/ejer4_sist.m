@@ -1,4 +1,3 @@
-N = 20;
 # Impulso: delta[n] = 1 en n=1, 0 en el resto
 # delta[n] = [1 0 0 0 0 0 0 0 ...]
 # cuando la entrada es un delta de dirac delta[n]
@@ -14,10 +13,11 @@ N = 20;
 ## la respuesta al impulso vale 1 en los pares y 0 en los impares, no decae a 0
 ## AR(Autorregresivo): la salida depende de valores pasados de si misma => y[n-2]
 ## IIR(Respuesta Infinita al Impulso): la realimentacion de la salida hace que la respuesta al impulso sea infinita
+N = 20;
 x = zeros(1, N);
 x(1) = 1;
-##y1 = zeros(1,N);
 
+##y1 = zeros(1,N);
 ##for n = 1:length(x)
 ##  y_n2 = 0; # como tenemos condiciones iniciales nulas, cuando sea negativo es 0
 ##  if n-2 >= 1
@@ -25,6 +25,8 @@ x(1) = 1;
 ##  endif
 ##  y1(n) = x(n) + y_n2;
 ##endfor
+
+# y[n] - y[n-2] = x[n], b => x; a => y
 b1 = [1];
 a1 = [1, 0, -1];
 h1 = filter_aux(b1, a1, x);
@@ -52,6 +54,7 @@ xlabel('n'); ylabel('h[n]');
 ##  y2(n) = x(n) + 0.5*x_n1;
 ##endfor
 
+# y[n] = x[n] + 0,5x[n−1], b => x; a => y
 b2 = [1, 0.5];
 a2 = [1];
 h2 = filter_aux(b2, a2, x);
@@ -86,6 +89,7 @@ xlabel('n'); ylabel('h[n]');
 ##  y3(n) = x(n) + 0.5*y3_n1 - 0.25*y3_n2;
 ##endfor
 
+# y[n] - 0.5y[n−1] + 0.25y[n−2] = x[n], b => x; a => y
 b3 = [1];
 a3 = [1, -0.5, 0.25];
 h3 = filter_aux(b3, a3, x);
