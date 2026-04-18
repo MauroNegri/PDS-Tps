@@ -2,6 +2,9 @@
 # delta[n] = [1 0 0 0 0 0 0 0 ...]
 # cuando la entrada es un delta de dirac delta[n]
 # la salida del sistema la llamamos respuesta al impulso h[n]
+N = 20;
+x = zeros(1, N);
+x(1) = 1;
 
 # 1) y[n] = x[n] + y[n-2]
 ## h[0] = x[0] + y[-2] = 1 + 0 = 1
@@ -13,9 +16,6 @@
 ## la respuesta al impulso vale 1 en los pares y 0 en los impares, no decae a 0
 ## AR(Autorregresivo): la salida depende de valores pasados de si misma => y[n-2]
 ## IIR(Respuesta Infinita al Impulso): la realimentacion de la salida hace que la respuesta al impulso sea infinita
-N = 20;
-x = zeros(1, N);
-x(1) = 1;
 
 ##y1 = zeros(1,N);
 ##for n = 1:length(x)
