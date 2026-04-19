@@ -1,5 +1,5 @@
 ##x=[x0 x1 x2 x3] n = 4
-##h=[h0 h1 h2] m = 3        => la conv lineal de una señal MxN es N+M-1
+##h=[h0 h1 h2] m = 3 => la conv lineal de una señal MxN es N+M-1
 ##y[n] = x*h => convolucion
 ##y[n] = x*h => sumatoria(x[k]h[n-k])
 ##k=0
