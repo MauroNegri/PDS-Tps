@@ -79,7 +79,7 @@ disp("Error entre metodos circ y matr: "), disp(norm(y_circ - y_matr));
 
 ## Parte 4
 ## La salida del sistema es:
-## y[n] = x[n] * h[n]   (convolucion)
+## y[n] = x[n] * h[n] (convolucion)
 ## Para recuperar x[n] se necesita deconvolucion:
 ## x[n] = y[n] * h_inv[n]   (h_inv sistema inverso)
 ## Si se agrega ruido a la salida:
@@ -92,5 +92,3 @@ disp("Error entre metodos circ y matr: "), disp(norm(y_circ - y_matr));
 ## - El ruido se amplifica
 ## - La señal recuperada x_rec[n] se distorsiona
 ## - La deconvolucion es muy sensible al ruido
-## Aunque el sistema original sea estable, el sistema inverso puede
-## amplificar el ruido, haciendo que la recuperacion de x[n] no sea precisa
