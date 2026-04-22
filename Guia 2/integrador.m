@@ -4,10 +4,11 @@
 ## Parte 1
 ## - Causal: si, porque depende de valores presentes y pasados, no de valores futuros
 ## - Lineal: si, porque:
-##   - Homogeneidad:
-##     x[n] = a*x[n], y_a[n] = a*x[n] + 0.2a*x[n-1] + 0.6y_a[n-1]
-##     Si y_a[n] = a*y[n] =>
-##     a*y[n] = a*x[n] + 0.2a*x[n-1] + 0.6a*y[n-1] = a(x[n] + 0.2x[n − 1] + 0.6y[n − 1]) = a*y[n] => se cumple
+##   - Homogeneidad: x[n] = a*x[n]
+##     y_a[n] = a*x[n] + 0.2a*x[n-1] + 0.6y_a[n-1]
+##     Ecuacion Original multiplicada por a:
+##     a*y[n] = a*x[n] + 0.2a*x[n-1] + 0.6a*y[n-1]
+##     Si y_a[n−1] = a*y[n−1] => y_a[n] = a*y[n]
 ##   - Superposicion:
 ##     x[n] = x1[n]+x2[n]
 ##     y[n] = x1[n]+x2[n] + 0.2*(x1[n-1]+x2[n-1]) + 0.6*y[n-1]
@@ -77,11 +78,19 @@ disp("Error entre metodos circ y conv: "), disp(norm(y_circ - y_conv));
 disp("Error entre metodos circ y matr: "), disp(norm(y_circ - y_matr));
 
 ## Parte 4
-## y[n] = x[n]*h[n], entonces x[n] = y[n]/h[n] => deconvolucion
-## Si agregamos ruido r[n] a la salida: y_r[n] = y[n]+r[n]
-## Deconvolucion:
-## x_rec[n] = y_r[n]/h[n] = (y[n]+r[n])/h[n] = x[n] + r[n]/h[n]
-## Queda este termino r[n]/h[n]:
-## si h[n] => valores pequeños o cero, la division amplifica el ruido
-## La señal de entrada x[n] recuperada se va a ver afectada porque el ruido se amplifica
-## Afecta a la estabilidad del sistema, pequeños cambios en la entrada producen cambios muy grandes en la salida
+## La salida del sistema es:
+## y[n] = x[n] * h[n]   (convolucion)
+## Para recuperar x[n] se necesita deconvolucion:
+## x[n] = y[n] * h_inv[n]   (h_inv sistema inverso)
+## Si se agrega ruido a la salida:
+## y_r[n] = y[n] + r[n]
+## Al deconvolucionar:
+## x_rec[n] = y_r[n] * h_inv[n]
+##          = x[n] + r[n] * h_inv[n]
+## Esto significa que el ruido tambien pasa por el sistema inverso
+## Como h[n] tiende a 0, su inverso puede amplificar valores (donde h[n] es pequeño)
+## - El ruido se amplifica
+## - La señal recuperada x_rec[n] se distorsiona
+## - La deconvolucion es muy sensible al ruido
+## Aunque el sistema original sea estable, el sistema inverso puede
+## amplificar el ruido, haciendo que la recuperacion de x[n] no sea precisa
