@@ -24,11 +24,9 @@ N = length(x);
 
 y = zeros(1, N);
 for k = 1:N
-  suma = 0;
   for l = 1:N
-    suma = suma + h(l)*x(mod(N+k-l,N)+1);
+    y(k) = y(k) + h(l)*x(mod(N+k-l,N)+1);
   endfor
-  y(k) = suma;
 endfor
 
 disp("Resultado de la convolucion circular: "), disp(y);
