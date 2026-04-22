@@ -1,11 +1,7 @@
 N = 10;
 a =1/2; # |a| <1
-h_a = zeros(1, N);
-h_b = zeros(1, N);
-for n = 1:N
-  h_a(n) = sin(8*(n-1)); #0 <= n <= N−1
-  h_b(n) = a^(n-1);
-endfor
+h_a = sin(8*(0:N-1)); #0 <= n <= N−1
+h_b = a.^(0:N-1);
 
 # x[n] = delta[n] - a*delta[n-1] | y[n] = h[n] - a*h[n-1]
 # x[0] = 1

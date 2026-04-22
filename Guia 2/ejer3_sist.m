@@ -11,3 +11,24 @@
 #   y[n] = y1[n]+y2[n] => se cumple
 # - Invariante en el tiempo: si, porque tiene coeficientes constantes
 # - Memoria: si, porque depende de x[n] y x[n-1]
+N = 20;
+x = zeros(1, N);
+x(1) = 1;
+
+y = zeros(1,N);
+for n = 1:length(x)
+  y_n1 = 0;
+  y_n2 = 0;
+  if n-1 >= 1
+    y_n1 = y(n-1);
+  endif
+  if n-2 >= 1
+    y_n2 = y(n-2);
+  endif
+  y(n) = x(n) + 0.5*y_n1 - 0.25*y_n2;
+endfor
+
+figure(1);
+stem(0:N-1, y);
+title('y[n] sistema');
+xlabel('n'); ylabel('y[n]');

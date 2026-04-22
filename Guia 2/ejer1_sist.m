@@ -79,7 +79,7 @@ xlabel('t[s]'); ylabel('y[n]');
 # - Invariante en el tiempo: si, porque tiene coeficientes constantes
 # - Memoria: con memoria, depende de valores distintos del instante actual
 
-% 3) y[n] = x[n]+2
+# 3) y[n] = x[n]+2
 y3 = x + 2;
 
 figure(3);
@@ -95,7 +95,8 @@ xlabel('t[s]'); ylabel('y[n]');
 
 # - Causal: si, solo depende de x[n] actual
 # - Lineal: no, porque:
-#   - Homogeneidad: ax[n] => y[n] = a(x[n]+2) = ax[n] + 2a => no se cumple
+#   - Homogeneidad: ax[n] => y[n] = ax[n] + 2
+#     ay[n] => ay[n] = a(x[n]+2) = ax[n] + 2a      => no se cumple la igualdad
 #   - Superposicion: y[n] = x[n]+2, x[n] = x1[n]+x2[n]
 #     y[n] = x1[n]+x2[n]+2
 #     y1[n] = x1[n]+2, y2[n] = x2[n]+2
