@@ -1,0 +1,170 @@
+## -----------------------------------------------------------------------------
+## SEÑAL 1: SENOIDAL x(t)=3sin(2π⋅5⋅t)
+## 1. VALOR MEDIO = ~0
+## La senoidal es simetrica respecto al eje horizontal:
+## pasa exactamente el mismo tiempo en positivo que en negativo
+## por eso su promedio es 0. Matematicamente:
+## mean(x) = (1/N) * ∑ A*sin(2*pi*fs*n*T) = 0
+## ya que la suma de una senoidal completa es siempre 0
+##
+## 2. MAXIMO = ~3 (= A)
+## El seno alcanza su valor maximo en 1, por eso:
+## max(A*sin(...)) = A*1 = A = 3
+## No da exactamente 3 porque la grilla discreta puede no
+## caer exactamente en el pico de la senoidal
+##
+## 3. MINIMO = ~-3 (= -A)
+## El seno alcanza su valor minimo en -1, por eso:
+## min(A*sin(...)) = A*(-1) = -A = -3
+## Misma razon que el maximo, puede no ser exactamente -3
+##
+## 4. AMPLITUD = ~3 (= A)
+## amp = (max - min) / 2 = (3 - (-3)) / 2 = 6/2 = 3
+## Es la "altura" desde el centro (0) hasta el pico
+## coincide con A porque la senoidal esta centrada en 0
+##
+## 5. ENERGIA = ~450 (= A^2/2 * N)
+## E = ∑ x[n]^2 = ∑ (A*sin(...))^2
+## usando la identidad sin^2 = (1 - cos(2x))/2:
+## E = A^2/2 * N = 9/2 * 100 = 450
+## la energia crece con N porque sumamos mas muestras
+##
+## 6. ACCION = ~191
+## Acc = ∑ |x[n]| = ∑ |A*sin(...)|
+## es el area bajo la curva de la senoidal rectificada
+## no tiene un valor "redondo" como la energia
+## para una senoidal: Acc = A * (2/pi) * N = 3*(2/pi)*100 ≈ 191
+##
+## 7. POTENCIA = ~4.5 (= A^2/2)
+## P = E/N = 450/100 = 4.5
+## es la energia promedio por muestra
+## no depende de N, es una propiedad de la señal
+## para una senoidal de amplitud A: P = A^2/2 = 9/2 = 4.5
+##
+## 8. RMS = ~2.121 (= A/sqrt(2))
+## RMS = sqrt(P) = sqrt(4.5) = 3/sqrt(2) ≈ 2.121
+## es el valor de continua equivalente en potencia
+## un seno de amplitud 3 tiene el mismo efecto en potencia
+## que una continua de valor 2.121
+## en la grafica se ve que la mayor parte de la señal
+## "vive" entre -RMS y +RMS
+##
+## -----------------------------------------------------------------------------
+## SEÑAL 2: RAMPA x[n]=n*T (de 0 a 0.99)
+## 1. VALOR MEDIO = ~0.5
+## La rampa va de 0 a 0.99 de forma lineal y uniforme
+## su promedio es el valor del punto medio = (0 + 0.99)/2 ≈ 0.5
+## mean(0, T, 2T, ..., 0.99) = 0.5
+##
+## 2. MAXIMO = 0.99
+## El ultimo valor de la rampa es t_fin - T = 1 - 0.01 = 0.99
+## no llega a 1 porque el vector es t_ini:T:t_fin-T
+##
+## 3. MINIMO = 0
+## El primer valor de la rampa es t_ini = 0
+##
+## 4. AMPLITUD = ~0.495
+## amp = (0.99 - 0) / 2 = 0.495
+## es la mitad del rango total recorrido
+##
+## 5. ENERGIA = ~33.2
+## E = ∑ n^2*T^2 = T^2 * ∑ n^2
+## los valores grandes al final de la rampa contribuyen mucho
+## porque se elevan al cuadrado
+##
+## 6. ACCION = ~49.5
+## Acc = ∑ |x[n]| = ∑ x[n] (todos positivos)
+## es simplemente la suma de la progresion aritmetica
+## Acc = 0 + T + 2T + ... + 0.99 ≈ N*0.5*T*N = 49.5
+##
+## 7. POTENCIA = ~0.332
+## P = E/N = 33.2/100 = 0.332
+## para una rampa de 0 a 1: P = 1/3 ≈ 0.333
+##
+## 8. RMS = ~0.576
+## RMS = sqrt(P) = sqrt(0.332) ≈ 0.576
+## para una rampa de 0 a 1: RMS = 1/sqrt(3) ≈ 0.577
+## en la grafica se ve que RMS esta aproximadamente
+## a 2/3 de la altura total de la rampa
+##
+## -----------------------------------------------------------------------------
+## SEÑAL 3: ONDA CUADRADA (vale +1 o -1)
+## 1. VALOR MEDIO = ~0
+## La onda cuadrada simetrica pasa exactamente el mismo tiempo
+## en +1 que en -1, por eso su promedio es 0
+## mean([+1,+1,...,-1,-1,...]) = 0
+##
+## 2. MAXIMO = 1
+## Por definicion la onda cuadrada solo vale +1 o -1
+## el maximo es exactamente 1, sin aproximacion
+##
+## 3. MINIMO = -1
+## Por la misma razon, el minimo es exactamente -1
+##
+## 4. AMPLITUD = 1
+## amp = (1 - (-1)) / 2 = 2/2 = 1
+## coincide con la amplitud de definicion de la onda cuadrada
+##
+## 5. ENERGIA = 100 (= N)
+## E = ∑ x[n]^2 = ∑ (±1)^2 = ∑ 1 = N = 100
+## como todos los valores son +1 o -1, al cuadrado dan siempre 1
+## por eso la energia es exactamente igual a la cantidad de muestras
+##
+## 6. ACCION = 100 (= N)
+## Acc = ∑ |x[n]| = ∑ |±1| = ∑ 1 = N = 100
+## igual que la energia, todos los |x[n]| valen 1
+##
+## 7. POTENCIA = 1
+## P = E/N = 100/100 = 1
+## la potencia de una onda cuadrada simetrica es siempre 1
+## independientemente de la frecuencia o la fase
+##
+## 8. RMS = 1
+## RMS = sqrt(P) = sqrt(1) = 1
+## coincide con la amplitud porque todos los valores
+## ya tienen el mismo modulo (1)
+## en la grafica RMS coincide con el Maximo
+##
+## -----------------------------------------------------------------------------
+## SEÑAL 4: ALEATORIA GAUSSIANA N(0,1)
+## 1. VALOR MEDIO = ~0 (varia en cada ejecucion)
+## La gaussiana tiene media teorica 0
+## con N=100 muestras el estimador ya converge bien a 0
+## pero no es exactamente 0 porque es una realizacion finita
+## con mas muestras converge mejor (ley de grandes numeros)
+##
+## 2. MAXIMO = variable (~2.5 a 3.5 tipicamente)
+## Para una gaussiana N(0,1) la mayoria de los valores
+## caen en [-3, 3] (regla 3-sigma)
+## el maximo depende de cada realizacion aleatoria
+##
+## 3. MINIMO = variable (~-2.5 a -3.5 tipicamente)
+## Mismo razonamiento que el maximo
+##
+## 4. AMPLITUD = variable
+## Como maximo y minimo varian, la amplitud tambien varia
+## tipicamente esta cerca de 3 (= 3*sigma = 3*1)
+##
+## 5. ENERGIA = ~100 (= N)
+## E = ∑ x[n]^2
+## para una gaussiana N(0,1): E[x^2] = varianza = 1
+## entonces E_total ≈ N*1 = 100
+## no es exactamente 100 porque es una realizacion finita
+##
+## 6. ACCION = ~80 (= N * sqrt(2/pi))
+## Acc = ∑ |x[n]|
+## para una gaussiana N(0,1): E[|x|] = sqrt(2/pi) ≈ 0.798
+## entonces Acc ≈ N * 0.798 ≈ 80
+## varia en cada realizacion
+##
+## 7. POTENCIA = ~1
+## P = E/N ≈ 100/100 = 1
+## coincide con la varianza de la gaussiana
+## es el estimador de la varianza (potencia = varianza cuando media=0)
+##
+## 8. RMS = ~1
+## RMS = sqrt(P) ≈ sqrt(1) = 1
+## coincide con la desviacion estandar (sigma=1) de la gaussiana
+## en la grafica se ve que la mayor parte de la señal
+## esta contenida entre -RMS y +RMS (~68% de los valores
+## por la regla 1-sigma de la gaussiana)

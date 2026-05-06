@@ -30,6 +30,7 @@
 ## el resultado se acerca a 0 pero no llega nunca a ese valor
 ## es IIR(respuesta infinita al impulso) porque su respuesta al impulso no es finita
 
+## y[n] = x[n] + 0.2*x[n-1] + 0.6*y[n-1]
 ## Parte 2
 N = 20;
 h = zeros(1,N);

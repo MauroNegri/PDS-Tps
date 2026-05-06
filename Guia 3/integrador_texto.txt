@@ -1,0 +1,94 @@
+##De la Parte 1:
+##La energía dio 510, muy cerca del valor esperado de 500 (250 de la senoidal + 250 del ruido).
+##La diferencia es normal porque el ruido es aleatorio y cambia en cada corrida.
+##El RMS dio 1.01, casi exactamente el valor esperado de 1.
+##Esto confirma que la señal está bien construida.
+##
+##De la Parte 2:
+##La energía de y (senoidal pura) dio 250 y la energía del ruido dio 254, son prácticamente iguales.
+##Esto es clave para interpretar el ángulo: el ruido tiene tanta energía como la senoidal,
+##o sea que x está "mitad senoidal, mitad ruido".
+##El ángulo de 44.87° está casi exactamente en el medio entre 0° y 90°,
+##lo cual tiene todo el sentido dado que las dos componentes tienen energía similar.
+##Si el ruido tuviera energía mucho menor que la senoidal, el ángulo sería cercano a 0°
+##porque x se parecería mucho a y. Si el ruido dominara, el ángulo se acercaría a 90°.
+##El producto interno <x, y_norm> = 16.02 es positivo y significativo, lo que confirma
+##que x tiene una componente importante en la dirección de y (la senoidal de 100Hz).
+##Si x fuera ruido puro sin senoidal, el producto interno sería cercano a 0.
+##En resumen: las señales son moderadamente parecidas porque la senoidal de 100Hz
+##está presente en x pero el ruido tiene suficiente energía como para "alejar" x
+##de la dirección de y. No son ortogonales (no son completamente distintas)
+##pero tampoco son casi idénticas.
+
+##De la Parte 3:
+##Sobre la ortogonalidad de la base:
+##<phi1, phi2> = -8.2e-17 es prácticamente cero, lo que confirma que las dos senoidales
+##de 100Hz y 200Hz son ortogonales entre sí. Esto es importante porque
+##si la base no fuera ortogonal, los coeficientes alpha1 y alpha2 no se podrían
+##calcular simplemente como productos internos, habría que resolver un sistema de ecuaciones.
+
+##Sobre los coeficientes:
+##alpha1 = 14.76 es grande y alpha2 = -0.60 es casi cero. Esto dice que x tiene
+##mucha componente en la dirección de phi1 (100Hz) y casi ninguna en phi2 (200Hz),
+##lo cual tiene sentido porque x fue construida sumando una senoidal de
+##100Hz con ruido. No hay ninguna senoidal de 200Hz en x, entonces la proyección
+##sobre phi2 captura solo ruido aleatorio.
+
+##Sobre el ECT:
+##El ECT (~243) es muy similar a la energía del ruido (~245). Eso confirma que lo
+##que la base no puede representar es exactamente el ruido. La base {phi1, phi2}
+##captura la senoidal pero no puede capturar el ruido, porque el ruido no tiene
+##una frecuencia fija y no puede expresarse como combinación de esas dos senoidales.
+
+##Sobre la energía capturada:
+##El ~47% de energía capturada no significa que la aproximación sea mala.
+##Significa que la mitad de la energía de x es ruido, y ese ruido no puede
+##representarse con la base elegida. La parte "útil" de la señal
+##(la senoidal de 100Hz) sí está completamente capturada por phi1.
+##La energía de x es 469 y el ECT es 238, o sea que el error es aproximadamente
+##la mitad de la energía total. En términos absolutos parece grande, pero hay que
+##preguntarse: ¿grande respecto a qué?
+##La clave está en compararlo con la energía de cada componente:
+##Energía de la senoidal: 250 (la parte "útil")
+##Energía del ruido: 238
+##El ECT de 238 coincide casi exactamente con la energía del ruido. Eso significa
+##que el error no es un problema de la base, es simplemente el ruido que no puede
+##representarse con senoidales. La base capturó prácticamente toda la senoidal
+##de 100Hz y descartó el ruido, que era exactamente el objetivo.
+##Entonces la respuesta es: el ECT es grande en términos absolutos, pero es el
+##mínimo posible dado que x tiene ruido. Si x no tuviera ruido y fuera una
+##senoidal pura de 100Hz, el ECT sería prácticamente 0 porque phi1 sola la
+##representaría perfectamente. No podés hacer mejor que esto con esta base,
+##porque ninguna combinación de phi1 y phi2 puede reproducir ruido aleatorio.
+
+##Conclusión general:
+##La base simplificada {phi1, phi2} funciona como un filtro: extrae la componente
+##de 100Hz y descarta todo lo demás. Si se quisiera capturar más energía
+##habría que agrandar la base agregando más senoidales, pero nunca se podría
+##capturar el ruido completamente porque requeriría infinitos vectores de base.
+
+## Parte 4
+##La fase de la referencia importa mucho:
+##El producto interno pasó de 15.6 (con fase 0°) a -1.09 (con fase 90°).
+##Eso es una caída enorme. Con la referencia original se detectaba claramente
+##la presencia de la senoidal de 100Hz en x. Con la referencia desfasada 90° esa
+##información se pierde casi completamente.
+##Por qué pasa esto:
+##x fue construida con sin(2π·100·t). La referencia desfasada es
+##sin(2π·100·t + π/2) = cos(2π·100·t). Seno y coseno de la misma frecuencia son ortogonales,
+##entonces su producto interno es cero. La referencia desfasada "mira en una
+##dirección perpendicular" a la componente que tiene x, y no la detecta.
+##El pequeño valor que queda (-1.09) es solo ruido:
+##Si x fuera una senoidal pura sin ruido, el producto interno con y90 sería
+##exactamente 0. El -1.09 que da es la proyección del ruido sobre el coseno,
+##que es pequeña y aleatoria. Esto se confirma con que <y, y90> = 3.58e-15,
+##que es prácticamente cero exacto porque entre las dos senoidales puras no hay ruido.
+##Conexión con el ejercicio 5 del TP:
+##Esto explica por qué en el ejercicio del teléfono se usaban tanto seno como
+##coseno para calcular el producto interno. Si se usara solo seno, una señal
+##con fase 90° no sería detectada aunque tuviera la frecuencia correcta.
+##Al usar sqrt(<x,sin>² + <x,cos>²) se captura la componente en esa frecuencia sin importar la fase.
+##Conclusión general:
+##El producto interno es sensible a la fase de la referencia. Para detectar
+##una frecuencia de forma robusta hay que proyectar sobre seno y coseno y
+##tomar la magnitud, no confiar en una sola referencia con fase fija.

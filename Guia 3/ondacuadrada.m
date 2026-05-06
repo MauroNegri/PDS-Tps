@@ -8,5 +8,3 @@ function [t, c] = ondacuadrada(t_ini, t_fin, fm, fs, phi)
   c(mod(x, 2*pi) < pi) = 1;
 
 end
-
-

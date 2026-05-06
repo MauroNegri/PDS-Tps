@@ -1,0 +1,22 @@
+##  Parte 1: todas dan 0.3162
+##  Todas las similitudes son exactamente iguales, y 0.3162 ≈ 1/√10.
+##  Esto tiene sentido porque x es la suma de 10 senoidales con la misma
+##  amplitud y sin fase. Como las senoidales son aproximadamente ortogonales
+##  entre sí, cada una contribuye igualmente a x. El parecido de x con cualquiera
+##  de las componentes es el mismo: 1/√10 porque hay 10 componentes iguales.
+##  Parte 2: valores distintos y algunos negativos
+##  Al agregar fases aleatorias, cada senoidal se desalinea respecto a la
+##  referencia sin fase. Las que tienen fase cercana a 0 o π dan similitud
+##  positiva (como 3Hz con 0.78 rad → 0.22), las que tienen fase cercana a π/2
+##  dan cercano a 0, y las que tienen fase cercana a π dan negativas.
+##  Esto confirma exactamente lo que viste en la parte 4 del ejercicio integrador:
+##  la fase destruye el producto interno.
+##  Parte 3: todas dan ~0
+##  Esto es el resultado más interesante. La onda cuadrada de 5.5Hz tiene
+##  similitud prácticamente cero con todas las senoidales de 1 a 10Hz. Hay dos razones:
+##  La primera es que 5.5Hz no está en el conjunto {1,2,...,10Hz},
+##  entonces no comparte frecuencia con ninguna de las referencias.
+##  La segunda es que una onda cuadrada se descompone en armónicos impares de
+##  su frecuencia fundamental: 5.5Hz, 16.5Hz, 27.5Hz, etc.
+##  Ninguno de esos armónicos cae en el rango 1-10Hz, entonces la proyección
+##  sobre todas esas senoidales es cero.
