@@ -72,7 +72,7 @@ max_ramp = max(x_ramp);
 ## 3. Minimo: primer valor de la rampa
 min_ramp = min(x_ramp);
 ## 4. Amplitud: mitad del rango total recorrido por la rampa
-amp_ramp = (max_ramp - min_ramp) / 2;
+amp_ramp = max(abs(x_ramp));
 ## 5. Energia: suma de cuadrados
 E_ramp = sum(x_ramp .^ 2);
 ## 6. Accion: como la rampa es positiva es igual a la suma de sus valores
